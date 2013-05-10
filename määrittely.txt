@@ -1,0 +1,12 @@
+Määrittelydokumentti
+
+
+
+Valitsin harjoitustyötä varten ongelmaksi a-starin. Se on algoritmi jolla haetaan ratkaisu hakupuusta.
+A* evaluoi funktion f(n)=g(n)+h(n) avulla, missä g(n) kuvaa kustannusta saavuttaa tietty solmu ja h(n) on kustannusarvio solmusta maalitilaan. 
+Tällöin f arvioi kustannusta lähtösolmusta maalisolmuun. A* on optimaalinen jos h ei koskaan yliarvioi kustannusta saavuttaa maalisolmu.
+
+Teen aluksi tavallisen A* jossa maalisolmu ei liiku. Tämän jälkeen kun olen saanut sen toimimaan teen ratkaisun, jossa maalisolmu liikkuu.
+
+A* aikavaativuus on noin O(log n). 
+
