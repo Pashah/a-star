@@ -1,12 +1,24 @@
 Määrittelydokumentti
 
 
+Mitä algoritmeja ja tietorakenteita toteutat työssäsi?
 
-Valitsin harjoitustyötä varten ongelmaksi a-starin. Se on algoritmi jolla haetaan ratkaisu hakupuusta.
-A* evaluoi funktion f(n)=g(n)+h(n) avulla, missä g(n) kuvaa kustannusta saavuttaa tietty solmu ja h(n) on kustannusarvio solmusta maalitilaan. 
-Tällöin f arvioi kustannusta lähtösolmusta maalisolmuun. A* on optimaalinen jos h ei koskaan yliarvioi kustannusta saavuttaa maalisolmu.
+Toteutan A*. Tietorakenteina käytän kekoja. Esimerkiksi prioriteettijonoa.
 
-Teen aluksi tavallisen A* jossa maalisolmu ei liiku. Tämän jälkeen kun olen saanut sen toimimaan teen ratkaisun, jossa maalisolmu liikkuu.
+Mitä ongelmaa ratkaiset ja miksi valitsit kyseiset algoritmit/tietorakenteet? 
 
-A* aikavaativuus on noin O(log n). 
+A* on reitinhakuongelma. A* vaikutti minun mielestäni mielenkiintoiselta ja se on varmasti sopivan haastava toteuttaa. 
 
+Mitä syötteitä ohjelma saa ja miten näitä käytetään? 
+
+Ohjelma saa taulukon, jossa on kartta, josta se sitten laskee sen reitin. Käyttäjä voi luoda haluamansa taulukon.
+
+Tavoitteena olevat aika- ja tilavaativuudet (m.m. O-analyysi) 
+
+Tavoite aikavaativuus on O(log n) ja tilavaativuus O(n)
+
+Lähteet
+
+http://en.wikipedia.org/wiki/A*
+http://en.wikipedia.org/wiki/Heap_(data_structure)
+http://en.wikipedia.org/wiki/Priority_queue
