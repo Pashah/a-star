@@ -1,0 +1,20 @@
+Viikkoraportti 2:
+
+T‰ll‰ viikolla opin paljon lis‰‰ A-starista kun tutustuin siihen enemm‰n ja aloin miettim‰‰n miten se pit‰‰ toteuttaa. Opin uudesta manhattan-et‰isyydest‰, 
+jota k‰yt‰n hyˆdyksi. K‰yt‰n manhattan et‰isyytt‰ kun lasken nodejen arvoja. Siirtyminen eteen,sivulle ja alas "maksaa" 10 kun taas siirtyminen viistottaisesti
+maksaa 14. N‰m‰ arvot ovat pyˆristettyj‰.
+ 
+Lis‰ksi opin priorityqueue:sta eli prioriteettijonosta uutta asiaa ja varsinkin siit‰ miten Javan valmis prioriteettijono toimii ja miten sit‰ k‰ytet‰‰n.
+Toteutankin varmaan ohjelmani prioriteettijonolla.
+
+Eniten mietitytt‰‰ liikkuvan maalin toteuttaminen. En ole viel‰ ehtinyt sit‰ paljoa viel‰ mietti‰ ja t‰ll‰ hetkell‰ annan maalin vain suoraan koodissa. T‰m‰
+pit‰isi varmaan muuttaa niin ett‰ teen jonkin erillisen maali-luokan joka p‰ivitt‰‰ paikkaansa tietyin v‰lein? Lis‰ksi suorituskyky mittausta en ole viel‰ tehnyt.
+Toteutetaanko se vain jollain Javan omalla timerilla vai miten?
+
+Ohjelma on edistynyt mielest‰ni ihan hyvin ja olen suht koht aikataulussa. Suorituskykymittausta en ole viel‰ aloittanut ja lis‰ksi maali pit‰isi toteuttaa
+paremmin, jotta sit‰ voisi sitten liikutella fiksusti. Olen kuitenkin nyt sis‰ist‰nyt A* idean omasta mielest‰ni hyvin ja tajuan mit‰ siin‰ tapahtuu ja mik‰
+siin‰ on tarkoituksena. 
+
+Seuraavaksi alan tekem‰‰n suorituskykymittausta, teen jonkinn‰kˆisen maaliluokan, jotta maalia voi fiksusti siirt‰‰. Lis‰ksi toteutan priorityqueuen itse.
+N‰ist‰ vaikein on ehk‰ Priorityqueue ja sit‰ pit‰‰ mietti‰ miten sit‰ l‰htee toteuttamaan ja v‰h‰n lukea viel‰ lis‰‰ aiheesta. Lis‰ksi toteutan findRoutelle
+kunnon testin.

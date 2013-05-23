@@ -36,26 +36,21 @@ public class MapMakerTest {
     }
     
 
-    /**
-     * Test of createMap method, of class MapMaker.
-     */
     @Test
     public void testCreateMap() {
         System.out.println("createMap test");
         MapMaker instance = new MapMaker(korkeus,leveys,tyhjat);
-        char[][] expResult = new char[korkeus][leveys];
+        char[][] expected = new char[korkeus][leveys];
         for (int i = 0; i < korkeus; i++) {
             for (int j = 0; j < leveys; j++) {
-                expResult[i][j] = '#';
+                expected[i][j] = '#';
             }
         }
         char[][] result = instance.createMap();
-        assertArrayEquals(expResult, result);
+        assertArrayEquals(expected, result);
     }
 
-    /**
-     * Test of createSpace method, of class MapMaker.
-     */
+
     @Test
     public void testCreateSpace() {
         System.out.println("createSpace test");

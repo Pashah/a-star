@@ -18,6 +18,12 @@ public class MapMaker {
     private int leveys;
     private int tyhjat;
     
+    /**
+     * Konstruktori
+     * @param korkeus kartan korkeus
+     * @param leveys kartan leveys
+     * @param tyhjat kartan prosenttuaalinen tyhjien määrä
+     */
     public MapMaker(int korkeus, int leveys, int tyhjat) {
         this.korkeus = korkeus;
         this.leveys = leveys;
