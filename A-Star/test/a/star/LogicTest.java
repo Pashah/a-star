@@ -28,6 +28,13 @@ public class LogicTest {
         map[5][5] = '#';
         logic = new Logic(map);
     }
+    
+    @Test
+    public void testFindRoute() {
+        boolean expectedResult = true;
+        boolean routeFound = logic.findRoute();
+        assertEquals("Did not found route even though should have!", expectedResult, routeFound);
+    }
 
     @Test
     public void testCreateNodeMap() {
@@ -66,11 +73,6 @@ public class LogicTest {
         if (!queue.isEmpty()) {
             fail("Possible to go through walls even though should not");
         }
-        y = 2;
-        logic.checkUp(x, y, nodeMap, queue);
-        if (queue.isEmpty()) {
-            fail("Nothing set to queue even though should have");
-        }
     }
     
     @Test
@@ -99,11 +101,6 @@ public class LogicTest {
         logic.checkDown(x, y, nodeMap, queue);
         if (!queue.isEmpty()) {
             fail("Possible to go through walls even though should not");
-        }
-        y = 2;
-        logic.checkUp(x, y, nodeMap, queue);
-        if (queue.isEmpty()) {
-            fail("Nothing set to queue even though should have");
         }
     }
     
@@ -134,11 +131,6 @@ public class LogicTest {
         if (!queue.isEmpty()) {
             fail("Possible to go through walls even though should not");
         }
-        y = 2;
-        logic.checkLeft(x, y, nodeMap, queue);
-        if (queue.isEmpty()) {
-            fail("Nothing set to queue even though should have");
-        }
     }
     
     @Test
@@ -167,11 +159,6 @@ public class LogicTest {
         logic.checkRight(x, y, nodeMap, queue);
         if (!queue.isEmpty()) {
             fail("Possible to go through walls even though should not");
-        }
-        y = 2;
-        logic.checkRight(x, y, nodeMap, queue);
-        if (queue.isEmpty()) {
-            fail("Nothing set to queue even though should have");
         }
     }
     
@@ -202,11 +189,6 @@ public class LogicTest {
         if (!queue.isEmpty()) {
             fail("Possible to go through walls even though should not");
         }
-        y = 2;
-        logic.checkDownRight(x, y, nodeMap, queue);
-        if (queue.isEmpty()) {
-            fail("Nothing set to queue even though should have");
-        }
     }
     
     @Test
@@ -235,11 +217,6 @@ public class LogicTest {
         logic.checkDownLeft(x, y, nodeMap, queue);
         if (!queue.isEmpty()) {
             fail("Possible to go through walls even though should not");
-        }
-        y = 2;
-        logic.checkDownLeft(x, y, nodeMap, queue);
-        if (queue.isEmpty()) {
-            fail("Nothing set to queue even though should have");
         }
     }
     
@@ -270,11 +247,6 @@ public class LogicTest {
         if (!queue.isEmpty()) {
             fail("Possible to go through walls even though should not");
         }
-        y = 2;
-        logic.checkUpLeft(x, y, nodeMap, queue);
-        if (queue.isEmpty()) {
-            fail("Nothing set to queue even though should have");
-        }
     }
     
     @Test
@@ -304,12 +276,5 @@ public class LogicTest {
         if (!queue.isEmpty()) {
             fail("Possible to go through walls even though should not");
         }
-        y = 2;
-        logic.checkUpRight(x, y, nodeMap, queue);
-        if (queue.isEmpty()) {
-            fail("Nothing set to queue even though should have");
-        }
     }
-    
-    //TODO: test findRoute()
 }

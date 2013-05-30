@@ -11,6 +11,11 @@ public class AStar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        findRoute();
+                
+    }
+    
+    public static void findRoute() {
         MapMaker mapMaker = new MapMaker(5,5,500);
         char map[][];
         map = mapMaker.createMap();
@@ -26,6 +31,5 @@ public class AStar {
         } else {
             System.out.println("Reittiä ei löytynyt!");
         }
-                
     }
 }

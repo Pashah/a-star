@@ -7,7 +7,11 @@ package a.star;
 import java.util.*;
 
 /**
- * Tekee kartan.
+ * Tekee kartan, jossa #-merkki tarkoittaa seinää ja .-merkki tarkoittaa vapaata reittiä
+ * jota pitkin voi kulkea. Kartta on char tyyppinen matriisi, jonka korkeus ja leveys
+ * määritellään konstruktorissa intteinä. Lisäksi kartalle annetaan tyhjien prosenttiosuus
+ * konstruktoriin. Tyhjät paikat laitetaan karttaan randomilla, jolloin on mahdollista
+ * että ne ovat päällekkäin
  * @author Miika
  */
 public class MapMaker {
@@ -41,6 +45,21 @@ public class MapMaker {
     public int getTyhjat() {
         return tyhjat;
     }
+
+    public void setKorkeus(int korkeus) {
+        this.korkeus = korkeus;
+    }
+
+    public void setLeveys(int leveys) {
+        this.leveys = leveys;
+    }
+
+    public void setTyhjat(int tyhjat) {
+        this.tyhjat = tyhjat;
+    }
+    
+    
+    
     /**
      * Tekee käyttäjän syötteen mukaisen kartan.
      * Kartan jokainen ruutu täytetään #-merkillä, joka tarkoittaa seinää

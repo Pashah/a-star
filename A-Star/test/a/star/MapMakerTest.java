@@ -32,22 +32,25 @@ public class MapMakerTest {
     public void setUp() {
         korkeus = 10;
         leveys = 10;
-        tyhjat = 90;
+        tyhjat = 0;
     }
     
 
     @Test
     public void testCreateMap() {
-        System.out.println("createMap test");
-        MapMaker instance = new MapMaker(korkeus,leveys,tyhjat);
+        MapMaker mapMaker = new MapMaker(korkeus,leveys,tyhjat);
         char[][] expected = new char[korkeus][leveys];
         for (int i = 0; i < korkeus; i++) {
             for (int j = 0; j < leveys; j++) {
                 expected[i][j] = '#';
             }
         }
-        char[][] result = instance.createMap();
+        char[][] result = mapMaker.createMap();
         assertArrayEquals(expected, result);
+        mapMaker.setTyhjat(400);
+        mapMaker.createSpace(result);
+        expected[0][0] = '.';
+        assertEquals("Expected . but was #",expected[0][0],result[0][0]);
     }
 
 

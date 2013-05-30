@@ -1,0 +1,11 @@
+Viikkoraportti 3:
+
+T‰ll‰ viikolla keskityin enemm‰n testien tekemiseen ja sainkin niit‰ hyvin enemm‰n. Lis‰ksi aloittelin prioriteettijonon toteutusta ja mietin miten se kannattaisi
+toteuttaa. Minulla on nyt suht koht selke‰ ajatus sen toteutuksesta, mutta en ehtinyt toteuttaa sit‰ t‰ksi viikoksi loppuun asti. Lis‰ksi toteutin liikkuvan
+maalin, t‰ll‰ hetkell‰ se liikkuu joka kolmannen liikkeen j‰lkeen yhden askeleen. Voisin viel‰ lis‰t‰ siihen jonkun, ett‰ se liikkuisi randomilla johonkin suuntaan,
+koska t‰ll‰ hetkell‰ se liikkuu vain tiettyihin suuntiin miss‰ on tilaa. P‰‰dyin lopulta toteuttamaan liikkuvan maalin vain osana Node luokkaa.
+
+Ohjelma eteni t‰ll‰kin viikolla ihan hyvin vaikka uutta toteutus ei niin paljoa tullutkaan. Sain kuitenkin testej‰ lis‰‰ sek‰ lis‰ksi mietitty‰ miten toteutan
+prioriteettijonon.
+
+Ensi viikolla jatkan prioriteettijonon toteutusta ja viimeistelen sen sek‰ teen testit sille. Lis‰ksi aloitan dokumentaatiota ensi viikolla.

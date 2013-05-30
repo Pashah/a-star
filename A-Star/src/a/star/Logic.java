@@ -27,11 +27,12 @@ public class Logic {
      * @return palauttaa true jos reitti löytyi ja false jos ei löytynyt
      */
     public boolean findRoute() {
-        int size = (this.map.length * this.map[0].length);
         PriorityQueue<Node> queue = new PriorityQueue<>(10, nodeComparator);
         Node[][] nodeMap = createNodeMap();
+        nodeMap[3][4].setGoalNode(true);
         Node node = nodeMap[0][0];
         queue.add(node);
+        int i = 0;
 
         while (!queue.isEmpty()) {
             node = queue.remove();
@@ -39,8 +40,13 @@ public class Logic {
             int x = node.getX();
             int y = node.getY();
 
+            if(i == 3) {
+                i = 0;
+                node.moveGoalNode(nodeMap);
+            }
+            
             //Tarkistetaan ollaanko maalisolmussa, jos ollaan niin palautetaan true
-            if (x == 3 && y == 4) {
+            if (node.isGoalNode()) {
                 return true;
             }
 
@@ -53,6 +59,7 @@ public class Logic {
             checkDown(x, y, nodeMap, queue);
             checkDownLeft(x, y, nodeMap, queue);
             checkDownRight(x, y, nodeMap, queue);
+            i++;
         }
         return false;
     }
@@ -85,7 +92,7 @@ public class Logic {
         if (x < this.map.length && x >= 0 && y + 1 < this.map[0].length && y + 1 >= 0) {
             if (this.map[x][y + 1] == '.' && nodeMap[x][y + 1].isVisited() == false) {
                 Node upNode = nodeMap[x][y + 1];
-                upNode.setArvo(10 + upNode.getDistanceToGoal());
+                upNode.setArvo(10 + upNode.calculateDistanceToGoal(upNode, nodeMap));
                 queue.add(upNode);
             }
         }
@@ -103,7 +110,7 @@ public class Logic {
         if (x + 1 < this.map.length && x + 1 >= 0 && y + 1 < this.map[0].length && y + 1 >= 0) {
             if (this.map[x + 1][y + 1] == '.' && nodeMap[x + 1][y + 1].isVisited() == false) {
                 Node upRightNode = nodeMap[x + 1][y + 1];
-                upRightNode.setArvo(14 + upRightNode.getDistanceToGoal());
+                upRightNode.setArvo(14 + upRightNode.calculateDistanceToGoal(upRightNode, nodeMap));
                 queue.add(upRightNode);
             }
         }
@@ -121,7 +128,7 @@ public class Logic {
         if (x - 1 < this.map.length && x - 1 >= 0 && y + 1 < this.map[0].length && y + 1 >= 0) {
             if (this.map[x - 1][y + 1] == '.' && nodeMap[x - 1][y + 1].isVisited() == false) {
                 Node upLeftNode = nodeMap[x - 1][y + 1];
-                upLeftNode.setArvo(14 + upLeftNode.getDistanceToGoal());
+                upLeftNode.setArvo(14 + upLeftNode.calculateDistanceToGoal(upLeftNode, nodeMap));
                 queue.add(upLeftNode);
             }
         }
@@ -139,7 +146,7 @@ public class Logic {
         if (x + 1 < this.map.length && x + 1 >= 0 && y < this.map[0].length && y >= 0) {
             if (this.map[x + 1][y] == '.' && nodeMap[x + 1][y].isVisited() == false) {
                 Node rightNode = nodeMap[x + 1][y];
-                rightNode.setArvo(10 + rightNode.getDistanceToGoal());
+                rightNode.setArvo(10 + rightNode.calculateDistanceToGoal(rightNode, nodeMap));
                 queue.add(rightNode);
             }
         }
@@ -157,7 +164,7 @@ public class Logic {
         if (x - 1 < this.map.length && x - 1 >= 0 && y < this.map[0].length && y >= 0) {
             if (this.map[x - 1][y] == '.' && nodeMap[x - 1][y].isVisited() == false) {
                 Node leftNode = nodeMap[x - 1][y];
-                leftNode.setArvo(10 + leftNode.getDistanceToGoal());
+                leftNode.setArvo(10 + leftNode.calculateDistanceToGoal(leftNode, nodeMap));
                 queue.add(leftNode);
             }
         }
@@ -175,7 +182,7 @@ public class Logic {
         if (x < this.map.length && x >= 0 && y - 1 < this.map[0].length && y - 1 >= 0) {
             if (this.map[x][y - 1] == '.' && nodeMap[x][y - 1].isVisited() == false) {
                 Node downNode = nodeMap[x][y - 1];
-                downNode.setArvo(10 + downNode.getDistanceToGoal());
+                downNode.setArvo(10 + downNode.calculateDistanceToGoal(downNode, nodeMap));
                 queue.add(downNode);
             }
         }
@@ -193,7 +200,7 @@ public class Logic {
         if (x + 1 < this.map.length && x + 1 >= 0 && y - 1 < this.map[0].length && y - 1 >= 0) {
             if (this.map[x + 1][y - 1] == '.' && nodeMap[x + 1][y - 1].isVisited() == false) {
                 Node downRightNode = nodeMap[x + 1][y - 1];
-                downRightNode.setArvo(14 + downRightNode.getDistanceToGoal());
+                downRightNode.setArvo(14 + downRightNode.calculateDistanceToGoal(downRightNode, nodeMap));
                 queue.add(downRightNode);
             }
         }
@@ -211,7 +218,7 @@ public class Logic {
         if (x - 1 < this.map.length && x - 1 >= 0 && y - 1 < this.map[0].length && y - 1 >= 0) {
             if (this.map[x - 1][y - 1] == '.' && nodeMap[x - 1][y - 1].isVisited() == false) {
                 Node downLeftNode = nodeMap[x - 1][y - 1];
-                downLeftNode.setArvo(14 + downLeftNode.getDistanceToGoal());
+                downLeftNode.setArvo(14 + downLeftNode.calculateDistanceToGoal(downLeftNode, nodeMap));
                 queue.add(downLeftNode);
             }
         }
