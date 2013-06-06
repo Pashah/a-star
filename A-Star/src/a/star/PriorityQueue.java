@@ -26,11 +26,12 @@ public class PriorityQueue {
      * @param node lisättävä node
      */
     public void insert(Node node) {
-        if(currentIndex + 1 >= this.queue.length) {
+        if(this.currentIndex + 1 >= this.queue.length) {
             doubleQueue();
         }
-        
-        
+        this.queue[this.currentIndex] = node;
+        heapify(this.currentIndex);
+        this.currentIndex++;
     }
     
     /**
@@ -54,23 +55,82 @@ public class PriorityQueue {
             return null;
         }
         Node minNode = this.queue[0];
-        currentIndex--;
-        this.queue[0] = this.queue[currentIndex];
-        this.queue[currentIndex] = null;
-        arrangeQueue();
+        this.currentIndex--;
+        this.queue[0] = this.queue[this.currentIndex];
+        this.queue[this.currentIndex] = null;
+        heapifyDown(0);
         return minNode;
     }
     
-    public void arrangeQueue() {
-        
+    /**
+     * Vertaa nodea joka on indexissä sen vanhempaan ja jos nykyisen noden arvo on pienempi
+     * niin siirtää nykyistä nodea ylöspäin "keossa"
+     * @param index nykyisen noden index, jota verrataan
+     */
+    public void heapify(int index) {
+        if(index < 0)
+            return;
+        int parent =(index - 1) / 2;
+        if(parent < 0)
+            return;
+        if(this.queue[index].getArvo() < this.queue[parent].getArvo()) {
+            Node temp = this.queue[index];
+            this.queue[index] = this.queue[parent];
+            this.queue[parent] = temp;
+            heapify(parent);
+        }
     }
     
+    /**
+     * Vertaa nodea, joka on paikassa index, sen lapsiin ja siirtää nodea jonossa
+     * alaspäin jos lapset ovat pienempiä kuin itse node
+     * @param index 
+     */
+    public void heapifyDown(int index) {
+        if(index > index / 2)
+            return;
+        int childIndex = getChildIndex(index);
+        Node currentNode = this.queue[index];
+        if(childIndex == 0)
+            return;
+        if(this.queue[childIndex].getArvo() < currentNode.getArvo()) {
+            Node temp = this.queue[childIndex];
+            this.queue[childIndex] = currentNode;
+            this.queue[index] = temp;
+            heapifyDown(childIndex);
+        } 
+    }
+    
+    /**
+     * Palauttaa lapsisolmun indexin. Palauttaa 0, jos lapsisolmuja ei ole.
+     * Palauttaa pienimmän lapsisolmuista.
+     * @param currentIndex nykyisen noden index
+     * @return pienimmän lapsisolmun index
+     */
+    private int getChildIndex(int currentIndex) {
+        int leftChild = 2 * currentIndex + 1;
+        int rightChild = leftChild + 1;
+        if(this.queue[rightChild] == null && this.queue[leftChild] == null)
+            return 0;
+        if(this.queue[rightChild] != null && this.queue[leftChild] == null) 
+            return rightChild;
+        if(this.queue[rightChild] == null && this.queue[leftChild] != null) 
+            return leftChild;
+        if(this.queue[rightChild].getArvo() < this.queue[leftChild].getArvo())
+            return rightChild;
+        return leftChild;
+    }
+    
+    /**
+     * Tuplaa prioriteettijonon koon
+     */
     private void doubleQueue() {
         Node[] newQueue;
         newQueue = new Node[this.size * 2];
         for (int i = 0; i < this.size; i++) {
             newQueue[i] = this.queue[i];
         }
+        this.size = this.size * 2;
         this.queue = newQueue;
     }
     
