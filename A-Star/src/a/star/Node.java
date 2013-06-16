@@ -41,7 +41,6 @@ public class Node {
         this.y = y;
         this.arvo = 0;
         this.visited = false;
-        this.distanceToGoal = (30 - x) + (40 - y);
     }
 
     public int getArvo() {

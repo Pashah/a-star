@@ -26,12 +26,28 @@ public class PriorityQueue {
      * @param node lisättävä node
      */
     public void insert(Node node) {
-        if(this.currentIndex + 1 >= this.queue.length) {
+        if(nodesInQueue() + 1 >= this.queue.length) {
             doubleQueue();
         }
         this.queue[this.currentIndex] = node;
         heapify(this.currentIndex);
         this.currentIndex++;
+    }
+    
+    /**
+     * Apumetodi, joka palauttaa priorityQueuen nodejen lukumäärän
+     * @return Nodejen lukumäärä
+     */
+    public int nodesInQueue() {
+        return this.currentIndex;
+    }
+    
+    /**
+     * Palauttaa priorityQueuen sizen
+     * @return priorityQueuen koko
+     */
+    public int getSize() {
+        return this.size;
     }
     
     /**
@@ -87,7 +103,7 @@ public class PriorityQueue {
      * @param index 
      */
     public void heapifyDown(int index) {
-        if(index > index / 2)
+        if(index > this.currentIndex / 2 - 1)
             return;
         int childIndex = getChildIndex(index);
         Node currentNode = this.queue[index];

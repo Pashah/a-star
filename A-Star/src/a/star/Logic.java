@@ -1,7 +1,8 @@
 package a.star;
 
+import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.List;
 
 /**
  * A-Starin logiikka, eli täällä etsitään reitti ja lasketaan sen pituus
@@ -22,34 +23,33 @@ public class Logic {
     }
 
     /**
-     * Etsii reitin kartasta, aloitetaan kartan keskeltä
+     * Etsii reitin kartasta, aloitetaan kartan alareunasta
      *
      * @return palauttaa true jos reitti löytyi ja false jos ei löytynyt
      */
     public boolean findRoute() {
-        PriorityQueue<Node> queue = new PriorityQueue<>(10, nodeComparator);
+        PriorityQueue queue = new PriorityQueue(10);
         Node[][] nodeMap = createNodeMap();
-        nodeMap[3][4].setGoalNode(true);
+        nodeMap[this.map.length - 1][this.map[0].length - 1].setGoalNode(true);
+        this.map[this.map.length - 1][this.map[0].length - 1] = '.';
         Node node = nodeMap[0][0];
-        queue.add(node);
+        queue.insert(node);
         int i = 0;
 
-        while (!queue.isEmpty()) {
-            node = queue.remove();
+        while (queue.nodesInQueue() > 0) {
+            node = queue.extractMin();
             node.setVisited(true);
             int x = node.getX();
             int y = node.getY();
-
-            if(i == 3) {
-                i = 0;
-                node.moveGoalNode(nodeMap);
-            }
-            
             //Tarkistetaan ollaanko maalisolmussa, jos ollaan niin palautetaan true
             if (node.isGoalNode()) {
                 return true;
             }
 
+            if(i == 5) {
+                i = 0;
+                node.moveGoalNode(nodeMap);
+            }
             //Tarkistetaan kaikki mahdolliset suunnat edetä ja lisää ne queueen
             checkUp(x, y, nodeMap, queue);
             checkUpRight(x, y, nodeMap, queue);
@@ -88,12 +88,12 @@ public class Logic {
      * @param nodeMap node kartta, josta otetaan seuraava node
      * @param queue prioriteettijono johon lisätään node
      */
-    public void checkUp(int x, int y, Node[][] nodeMap, PriorityQueue<Node> queue) {
-        if (x < this.map.length && x >= 0 && y + 1 < this.map[0].length && y + 1 >= 0) {
+    public void checkUp(int x, int y, Node[][] nodeMap, PriorityQueue queue) {
+        if (y + 1 < this.map[0].length) {
             if (this.map[x][y + 1] == '.' && nodeMap[x][y + 1].isVisited() == false) {
                 Node upNode = nodeMap[x][y + 1];
                 upNode.setArvo(10 + upNode.calculateDistanceToGoal(upNode, nodeMap));
-                queue.add(upNode);
+                queue.insert(upNode);
             }
         }
     }
@@ -106,12 +106,12 @@ public class Logic {
      * @param nodeMap node kartta, josta otetaan seuraava node
      * @param queue prioriteettijono johon lisätään node
      */
-    public void checkUpRight(int x, int y, Node[][] nodeMap, PriorityQueue<Node> queue) {
-        if (x + 1 < this.map.length && x + 1 >= 0 && y + 1 < this.map[0].length && y + 1 >= 0) {
+    public void checkUpRight(int x, int y, Node[][] nodeMap, PriorityQueue queue) {
+        if (x + 1 < this.map.length && y + 1 < this.map[0].length) {
             if (this.map[x + 1][y + 1] == '.' && nodeMap[x + 1][y + 1].isVisited() == false) {
                 Node upRightNode = nodeMap[x + 1][y + 1];
                 upRightNode.setArvo(14 + upRightNode.calculateDistanceToGoal(upRightNode, nodeMap));
-                queue.add(upRightNode);
+                queue.insert(upRightNode);
             }
         }
     }
@@ -124,12 +124,12 @@ public class Logic {
      * @param nodeMap node kartta, josta otetaan seuraava node
      * @param queue prioriteettijono johon lisätään node
      */
-    public void checkUpLeft(int x, int y, Node[][] nodeMap, PriorityQueue<Node> queue) {
-        if (x - 1 < this.map.length && x - 1 >= 0 && y + 1 < this.map[0].length && y + 1 >= 0) {
+    public void checkUpLeft(int x, int y, Node[][] nodeMap, PriorityQueue queue) {
+        if (x - 1 >= 0 && y + 1 < this.map[0].length) {
             if (this.map[x - 1][y + 1] == '.' && nodeMap[x - 1][y + 1].isVisited() == false) {
                 Node upLeftNode = nodeMap[x - 1][y + 1];
                 upLeftNode.setArvo(14 + upLeftNode.calculateDistanceToGoal(upLeftNode, nodeMap));
-                queue.add(upLeftNode);
+                queue.insert(upLeftNode);
             }
         }
     }
@@ -142,12 +142,12 @@ public class Logic {
      * @param nodeMap node kartta, josta otetaan seuraava node
      * @param queue prioriteettijono johon lisätään node
      */
-    public void checkRight(int x, int y, Node[][] nodeMap, PriorityQueue<Node> queue) {
-        if (x + 1 < this.map.length && x + 1 >= 0 && y < this.map[0].length && y >= 0) {
+    public void checkRight(int x, int y, Node[][] nodeMap, PriorityQueue queue) {
+        if (x + 1 < this.map.length) {
             if (this.map[x + 1][y] == '.' && nodeMap[x + 1][y].isVisited() == false) {
                 Node rightNode = nodeMap[x + 1][y];
                 rightNode.setArvo(10 + rightNode.calculateDistanceToGoal(rightNode, nodeMap));
-                queue.add(rightNode);
+                queue.insert(rightNode);
             }
         }
     }
@@ -160,12 +160,12 @@ public class Logic {
      * @param nodeMap node kartta, josta otetaan seuraava node
      * @param queue prioriteettijono johon lisätään node
      */
-    public void checkLeft(int x, int y, Node[][] nodeMap, PriorityQueue<Node> queue) {
-        if (x - 1 < this.map.length && x - 1 >= 0 && y < this.map[0].length && y >= 0) {
+    public void checkLeft(int x, int y, Node[][] nodeMap, PriorityQueue queue) {
+        if (x - 1 >= 0) {
             if (this.map[x - 1][y] == '.' && nodeMap[x - 1][y].isVisited() == false) {
                 Node leftNode = nodeMap[x - 1][y];
                 leftNode.setArvo(10 + leftNode.calculateDistanceToGoal(leftNode, nodeMap));
-                queue.add(leftNode);
+                queue.insert(leftNode);
             }
         }
     }
@@ -178,12 +178,12 @@ public class Logic {
      * @param nodeMap node kartta, josta otetaan seuraava node
      * @param queue prioriteettijono johon lisätään node
      */
-    public void checkDown(int x, int y, Node[][] nodeMap, PriorityQueue<Node> queue) {
-        if (x < this.map.length && x >= 0 && y - 1 < this.map[0].length && y - 1 >= 0) {
+    public void checkDown(int x, int y, Node[][] nodeMap, PriorityQueue queue) {
+        if (y - 1 >= 0) {
             if (this.map[x][y - 1] == '.' && nodeMap[x][y - 1].isVisited() == false) {
                 Node downNode = nodeMap[x][y - 1];
                 downNode.setArvo(10 + downNode.calculateDistanceToGoal(downNode, nodeMap));
-                queue.add(downNode);
+                queue.insert(downNode);
             }
         }
     }
@@ -196,12 +196,12 @@ public class Logic {
      * @param nodeMap node kartta, josta otetaan seuraava node
      * @param queue prioriteettijono johon lisätään node
      */
-    public void checkDownRight(int x, int y, Node[][] nodeMap, PriorityQueue<Node> queue) {
-        if (x + 1 < this.map.length && x + 1 >= 0 && y - 1 < this.map[0].length && y - 1 >= 0) {
+    public void checkDownRight(int x, int y, Node[][] nodeMap, PriorityQueue queue) {
+        if (x + 1 < this.map.length && y - 1 >= 0) {
             if (this.map[x + 1][y - 1] == '.' && nodeMap[x + 1][y - 1].isVisited() == false) {
                 Node downRightNode = nodeMap[x + 1][y - 1];
                 downRightNode.setArvo(14 + downRightNode.calculateDistanceToGoal(downRightNode, nodeMap));
-                queue.add(downRightNode);
+                queue.insert(downRightNode);
             }
         }
     }
@@ -214,12 +214,12 @@ public class Logic {
      * @param nodeMap node kartta, josta otetaan seuraava node
      * @param queue prioriteettijono johon lisätään node
      */
-    public void checkDownLeft(int x, int y, Node[][] nodeMap, PriorityQueue<Node> queue) {
-        if (x - 1 < this.map.length && x - 1 >= 0 && y - 1 < this.map[0].length && y - 1 >= 0) {
+    public void checkDownLeft(int x, int y, Node[][] nodeMap, PriorityQueue queue) {
+        if (x - 1 >= 0 && y - 1 >= 0) {
             if (this.map[x - 1][y - 1] == '.' && nodeMap[x - 1][y - 1].isVisited() == false) {
                 Node downLeftNode = nodeMap[x - 1][y - 1];
                 downLeftNode.setArvo(14 + downLeftNode.calculateDistanceToGoal(downLeftNode, nodeMap));
-                queue.add(downLeftNode);
+                queue.insert(downLeftNode);
             }
         }
     }
